@@ -189,7 +189,7 @@ Live Web App (Streamlit)
 
 ## 🌐 Live Demo
 
-**Streamlit App:** https://vishnu-prduct-sentiment-dashboard.streamlit.app/
+**Streamlit App:** https://prduct-sentiment-dashboard.streamlit.app/
 
 Enter any product review → instant sentiment analysis
 with compound score, subjectivity, confidence level,
