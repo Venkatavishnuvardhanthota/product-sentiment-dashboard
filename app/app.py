@@ -102,6 +102,14 @@ st.markdown(
 
 st.divider()
 
+# ── Initialize session state ───────────────────────
+
+if 'text_area_widget' not in st.session_state:
+    st.session_state.text_area_widget = ''
+
+if 'run_analysis' not in st.session_state:
+    st.session_state.run_analysis = False
+
 #  Sidebar 
 
 with st.sidebar:
@@ -170,14 +178,12 @@ with st.sidebar:
     }
 
     for label, review_text in example_reviews.items():
+        if st.button(label, use_container_width=True):
+            st.session_state.text_area_widget = review_text
+            st.session_state.run_analysis = True
+            st.rerun()
 
-        if st.button(
-            label,
-            use_container_width=True
-        ):
-            st.session_state['review_input'] = review_text
-
-#  Main Input Area 
+# ── Main Input Area ────────────────────────────────
 
 col1, col2 = st.columns([2, 1])
 
@@ -187,17 +193,12 @@ with col1:
 
     review_input = st.text_area(
         label="Review Text",
-        value=st.session_state.get(
-            'review_input',
-            ''
-        ),
+        key="text_area_widget",
         height=150,
         placeholder=(
-            "Paste or type any product review here...\n"
-            "Example: This coffee is absolutely amazing! "
-            "Best purchase I've made this year."
-        ),
-        key="review_text_area"
+            "Paste or type any product review here..."
+            "Example: This coffee is absolutely amazing!"
+        )
     )
 
     analyze_button = st.button(
@@ -223,9 +224,17 @@ with col2:
     these patterns.*
     """)
 
+should_analyze = (
+    analyze_button
+    or st.session_state.run_analysis
+)
+
+if st.session_state.run_analysis:
+    st.session_state.run_analysis = False
+
 #  Analysis Results 
 
-if analyze_button and review_input.strip():
+if should_analyze and review_input.strip():
 
     st.divider()
     st.subheader("📊 Analysis Results")
@@ -509,7 +518,7 @@ if analyze_button and review_input.strip():
         "Always combine with star ratings in production."
     )
 
-elif analyze_button and not review_input.strip():
+elif should_analyze and not review_input.strip():
 
     st.warning(
         "⚠️ Please enter a review to analyze."

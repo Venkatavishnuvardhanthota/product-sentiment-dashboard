@@ -8,5 +8,6 @@ vaderSentiment
 textblob
 wordcloud
 scikit-learn
+streamlit
 jupyter
 nbformat
