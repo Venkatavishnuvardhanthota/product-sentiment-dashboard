@@ -85,6 +85,7 @@ text sentiment alone.
 
 ## 📁 Project Structure
 
+```text
 product-sentiment-dashboard/
 │
 ├── data/
@@ -120,6 +121,7 @@ product-sentiment-dashboard/
 │
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
